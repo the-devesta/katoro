@@ -242,20 +242,18 @@ export default function Page() {
       <span data-up="24"><i className="ico ico-thumb"></i>Six steps, one bowl</span>
     </div>
     <div className="rev-grid">
-      <div className="rev-col">
-        <div data-pop className="story">
-          <img className="shot" src="/assets/ai/app.jpg" alt="Katoro bowl builder app" />
-          <div className="bars"><i></i><i></i><i></i></div>
-          <div className="who"><img src="/assets/logo-primary.png" alt="" />katoro.app <i className="ico ico-check"></i></div>
-          <div className="bubble"><img src="/assets/emoji/steaming_bowl.png" alt="" /></div>
-        </div>
-        <div data-pop className="rev" style={{marginTop:'24px'} as React.CSSProperties}>
+      <div data-pop className="story">
+        <img className="shot" src="/assets/ai/app.jpg" alt="Katoro bowl builder app" />
+        <div className="bars"><i></i><i></i><i></i></div>
+        <div className="who"><img src="/assets/logo-primary.png" alt="" />katoro.app <i className="ico ico-check"></i></div>
+        <div className="bubble"><img src="/assets/emoji/steaming_bowl.png" alt="" /></div>
+      </div>
+      <div className="rev-steps">
+        <div data-pop className="rev">
           <div className="who"><img src="/assets/emoji/cooked_rice.png" alt="" />Step 1 · Base</div>
           <q>Pick rice, glass, hakka or udon noodles. Set the grams. Watch the bowl fill.</q>
           <div className="stars"><i className="ico ico-star"></i></div>
         </div>
-      </div>
-      <div className="rev-col">
         <div data-pop className="rev">
           <div className="who"><img src="/assets/emoji/cheese_wedge.png" alt="" />Step 2 · Protein</div>
           <q>Paneer, tofu, soya, edamame or tempeh. Only paneer is flagged non-vegan.</q>
@@ -267,16 +265,14 @@ export default function Page() {
           <div className="stars"><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i></div>
         </div>
         <div data-pop className="rev">
-          <div className="who"><img src="/assets/emoji/hot_pepper.png" alt="" />Step 5 · Spice</div>
-          <q>Chilli oil, sichuan pepper, green chilli. The heat meter moves as you add.</q>
-          <div className="stars"><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i></div>
-        </div>
-      </div>
-      <div className="rev-col">
-        <div data-pop className="rev">
           <div className="who"><img src="/assets/emoji/salt.png" alt="" />Step 4 · Sauce</div>
           <q>Sesame-soy, chilli-ginger or peanut satay. Poured on opening, so the build stays alive.</q>
           <div className="stars"><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i></div>
+        </div>
+        <div data-pop className="rev">
+          <div className="who"><img src="/assets/emoji/hot_pepper.png" alt="" />Step 5 · Spice</div>
+          <q>Chilli oil, sichuan pepper, green chilli. The heat meter moves as you add.</q>
+          <div className="stars"><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i><i className="ico ico-star"></i></div>
         </div>
         <div data-pop className="rev">
           <div className="who"><img src="/assets/emoji/peanuts.png" alt="" />Step 6 · Crunch</div>
