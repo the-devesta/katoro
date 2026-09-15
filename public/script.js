@@ -134,11 +134,18 @@ function splitWords(el) {
 }
 function loadSequence() {
   layout();
+  // Topbar: slides down from -32px (Framer "Menu Message")
+  const topbar = document.querySelector('.topbar');
+  spring(-32, 0, y => { topbar.style.transform = `translateY(${y}px)`; }, { stiffness: 170, damping: 16, onDone: () => { topbar.style.transform = ''; topbar.classList.add('in'); } });
+
+  // Nav: drops in from -100px with a real bounce (ζ≈0.5)
   const nav = document.querySelector('.nav');
   nav.style.opacity = '0';
-  spring(-100, 0, y => { nav.style.transform = `translateY(${y}px)`; nav.style.opacity = Math.min(1, 1 + y / 100); }, { stiffness: 160, damping: 20 });
+  spring(-100, 0, y => { nav.style.transform = `translateY(${y}px)`; nav.style.opacity = Math.min(1, 1 + y / 80); }, { stiffness: 150, damping: 12, onDone: () => { nav.style.transform = ''; nav.style.opacity = ''; nav.classList.add('in'); } });
 
-  const letters = splitLetters(document.querySelector('.h1-anim'));
+  const h1 = document.querySelector('.h1-anim');
+  const letters = splitLetters(h1);
+  h1.style.opacity = '1';
   letters.forEach((c, i) => setTimeout(() => {
     c.style.transition = 'opacity .45s ease, transform .6s cubic-bezier(.2,.8,.2,1)'; c.style.opacity = '1'; c.style.transform = 'none';
   }, 150 + i * 28));
@@ -149,12 +156,17 @@ function loadSequence() {
 
   showSlideContent(0, 100);
 
-  const words = splitWords(document.querySelector('.words-anim'));
+  // Arrows: scale-pop in (Framer translateY(-50%) scale(0) → 1)
+  document.querySelectorAll('.arrow').forEach((a, i) => setTimeout(() => spring(0, 1, p => { a.style.transform = `scale(${p})`; }, { stiffness: 200, damping: 13, onDone: () => { a.style.transform = ''; a.classList.add('in'); } }), 650 + i * 100));
+
+  const wordsEl = document.querySelector('.words-anim');
+  const words = splitWords(wordsEl);
+  wordsEl.style.opacity = '1';
   words.forEach((w, i) => setTimeout(() => { w.style.transition = 'opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1)'; w.style.opacity = '1'; w.style.transform = 'none'; }, 450 + i * 45));
 
   const btns = document.querySelector('.hero-btns');
   btns.style.opacity = '0'; btns.style.transform = 'translateY(64px)';
-  setTimeout(() => spring(64, 0, y => { btns.style.transform = `translateY(${y}px)`; btns.style.opacity = Math.min(1, 1 - y / 64 + 0.1); }, { stiffness: 170, damping: 16 }), 300);
+  setTimeout(() => spring(64, 0, y => { btns.style.transform = `translateY(${y}px)`; btns.style.opacity = Math.min(1, 1 - y / 64 + 0.1); }, { stiffness: 170, damping: 16, onDone: () => { btns.style.transform = ''; btns.style.opacity = ''; btns.classList.add('in'); } }), 300);
 }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(loadSequence); else loadSequence();
 
@@ -260,6 +272,9 @@ function runAppear(el) {
       el.style.opacity = Math.min(1, p * 1.5);
       el.style.transform = `translateY(${64 * (1 - p)}px) scale(${0.8 + 0.2 * p}) rotate(${-5 * (1 - p)}deg)`;
     }, { stiffness: 150, damping: 15 });
+    el.querySelectorAll('.item .dots').forEach((d, i) => setTimeout(() => {
+      d.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1), opacity .4s ease'; d.style.transform = 'none'; d.style.opacity = '1';
+    }, 250 + i * 35));
   }
 }
 // Visibility check that ignores transforms (elements start at scale(0), so IntersectionObserver would miss them)

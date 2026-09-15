@@ -149,7 +149,7 @@ footer .logo{font-size:40px}
 .emo,.hero .tag{touch-action:none;-webkit-user-select:none}
 .dragging{cursor:grabbing!important;z-index:50}
 .arrow{position:absolute;top:109px;width:48px;height:48px;border-radius:12px;background:var(--cream);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:6;box-shadow:0 8px 20px rgba(0,0,0,.35);transition:transform .2s}
-.arrow:hover{transform:scale(1.06)}
+.arrow.in:hover,html.js .arrow.in:hover{transform:scale(1.06)}
 .arrow .ico{width:24px;height:24px;color:var(--brown)}
 .arrow-l{left:0}.arrow-r{right:0}
 .hero-copy{text-align:center;margin-top:-16px;position:relative;z-index:4}
@@ -264,7 +264,6 @@ footer .logo{font-size:40px}
 .gallery .sub{margin-bottom:96px}
 .g-row{display:flex;width:max-content}
 .g-track{display:flex;gap:32px;padding-right:32px;animation:tick 40s linear infinite}
-.gallery:hover .g-track{animation-play-state:paused}
 .g-card{width:288px;aspect-ratio:9/16;border-radius:var(--radius);border:3px solid var(--brown);overflow:hidden;background:var(--orange);display:flex;align-items:center;justify-content:center;flex:none}
 .g-card img{width:100%;height:100%;object-fit:cover}
 .g-card.emo-card img{width:160px;height:160px}
@@ -478,3 +477,14 @@ select.wl-in[data-empty]{color:rgba(28,26,25,.5)}
 .wl-alt{grid-column:1/-1;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .wl-form.is-done .wl-in,.wl-form.is-done .wl-btn{display:none}
 @media (max-width:520px){.wl-form{grid-template-columns:1fr}.rev-steps{grid-template-columns:1fr}}
+
+/* ---------- Pre-hydration hidden states (only when JS runs, so nothing flashes before the load-in) ---------- */
+html.js .topbar{transform:translateY(-32px)}
+html.js .nav{opacity:0}
+html.js .h1-anim{opacity:0}
+html.js .words-anim{opacity:0}
+html.js .hero-btns{opacity:0}
+html.js .slide:first-child .food{opacity:0}
+html.js .arrow{transform:scale(0)}
+html.js .topbar.in,html.js .nav.in,html.js .hero-btns.in,html.js .arrow.in{transform:none;opacity:1}
+[data-menu] .item .dots{transform:translateX(-200px);opacity:0}
