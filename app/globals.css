@@ -359,7 +359,6 @@ footer .logo{justify-content:center}
   .hero-mid{padding:0 0 24px}
   .hero h1{font-size:clamp(56px,15vw,120px)}
   .track{top:190px;height:300px}
-  .switcher{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
   .food{width:240px;height:240px;margin-left:-120px;top:20px}
   .tag{font-size:14px;padding:5px 12px}
   .tag{--y:-20px!important}
@@ -398,15 +397,6 @@ footer .logo{justify-content:center}
   .item h3{font-size:22px}
 }
 
-/* ---------- Color switcher ---------- */
-.switcher{position:fixed;right:32px;bottom:calc(32px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:row-reverse;gap:8px;align-items:center}
-.switcher .dot{width:32px;height:32px;border-radius:10px;border:2px solid #fff;cursor:pointer;padding:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s;box-shadow:0 4px 12px rgba(0,0,0,.25)}
-.switcher .dot[data-theme=red]{background:#D81E20}
-.switcher .dot[data-theme=green]{background:#208030}
-.switcher .dot[data-theme=ink]{background:#1C1A19}
-.switcher .dot:not(.active){position:absolute;right:0;opacity:0;transform:translateX(16px);pointer-events:none}
-.switcher:hover .dot:not(.active){position:static;opacity:1;transform:none;pointer-events:auto}
-.switcher .dot:hover{transform:scale(1.15)}
 
 /* ---------- Click particles ---------- */
 .particles{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
@@ -472,6 +462,4 @@ footer .logo{justify-content:center}
   .collage,.order .collage{height:640px}
   .dishes{gap:64px}
   .dish,.dish-img{width:320px}.dish-img{height:320px}
-  .switcher{right:32px;bottom:32px}
-  .switcher .dot{width:48px;height:48px;border-radius:12px}
 }

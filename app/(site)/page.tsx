@@ -432,11 +432,6 @@ export default function Page() {
   <div className="f-giant" data-giant>Katoro</div>
 </footer>
 
-<div className="switcher" aria-label="Color theme">
-  <button className="dot" data-theme="red" aria-label="Katoro red"></button>
-  <button className="dot" data-theme="green" aria-label="Herb green"></button>
-  <button className="dot" data-theme="ink" aria-label="Charcoal ink"></button>
-</div>
 <div className="particles" aria-hidden="true"></div>
 
 <div className="mobile-menu">

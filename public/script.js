@@ -31,7 +31,6 @@ function setTheme(name) {
   const t = THEMES[name];
   document.documentElement.style.setProperty('--brown', t.brown);
   document.documentElement.style.setProperty('--orange', t.orange);
-  document.querySelectorAll('.switcher .dot').forEach(d => d.classList.toggle('active', d.dataset.theme === name));
 }
 
 /* ---------- Hero carousel ---------- */
@@ -173,12 +172,10 @@ function spawnParticle(x, y) {
 }
 document.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
-  if (e.target instanceof Element && e.target.closest('a,button,.tag,.emo,.arrow,input,textarea,.switcher,video')) return;
+  if (e.target instanceof Element && e.target.closest('a,button,.tag,.emo,.arrow,input,textarea,video')) return;
   spawnParticle(e.clientX, e.clientY);
 });
 
-/* ---------- Color switcher (fixed bottom-right) ---------- */
-document.querySelectorAll('.switcher .dot').forEach(d => d.addEventListener('click', () => setTheme(d.dataset.theme)));
 setTheme('red');
 
 /* ---------- Marquees: duplicate tracks so they loop seamlessly ---------- */
