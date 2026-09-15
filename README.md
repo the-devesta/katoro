@@ -19,6 +19,32 @@ npm run build && npm start
 - `public/script.js` – all animations (spring carousel, themes, particles, scroll-appear, Lenis)
 - `public/assets/` – images, emoji, logo variants · `public/og.jpg` – social share image
 
+## Waitlist (pre-launch mode)
+The site is in pre-launch mode: every "order" CTA points to `#Waitlist`, a form that POSTs to
+`/api/interest` (`app/api/interest/route.ts`). Leads are forwarded to whichever backend is configured
+via environment variables (set them in Vercel → Project → Settings → Environment Variables):
+
+| Variable | What it does |
+|---|---|
+| `INTEREST_WEBHOOK_URL` | POSTs each lead as JSON to this URL. Works with Google Apps Script (see below), Make, Zapier, n8n, Sheet.best. |
+| `RESEND_API_KEY` + `INTEREST_NOTIFY_EMAIL` | Emails each lead to you via Resend. Optional `INTEREST_FROM_EMAIL`. |
+
+Both can be set; either one is enough. If none is set in production the API returns 503 and the form
+falls back to a prefilled WhatsApp message so no lead is lost. In `npm run dev` with nothing set, leads
+append to `.data/interests.jsonl` (gitignored).
+
+Google Sheet in 3 minutes: new Sheet → Extensions → Apps Script → paste:
+```js
+function doPost(e){const d=JSON.parse(e.postData.contents);const s=SpreadsheetApp.getActiveSheet();
+if(s.getLastRow()===0)s.appendRow(["at","name","phone","area","diet","source","ua"]);
+s.appendRow([d.at,d.name,d.phone,d.area,d.diet,d.source,d.ua]);return ContentService.createTextOutput("ok");}
+```
+Deploy → New deployment → Web app → Execute as *Me*, access *Anyone* → copy the URL into `INTEREST_WEBHOOK_URL`.
+
+Lead payload: `{ name, phone, area, diet ("jain"|"vegan"|"veg"|""), source, ua, at }`. Honeypot field `website` drops bots silently.
+
+Branch `v1-deployed` holds the previous "order now" version of the site.
+
 ## Deploy (Vercel recommended)
 1. Push to GitHub, import in Vercel, framework auto-detected.
 2. Add domain `katoro.in` + `www.katoro.in` (redirect www → apex) in Vercel → Domains, set the DNS records it shows.

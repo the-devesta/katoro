@@ -92,22 +92,30 @@ let sx = null;
 hero.addEventListener('pointerdown', e => { if (e.target.closest('.tag,.emo,.arrow,a,button')) return; sx = e.clientX; });
 hero.addEventListener('pointerup', e => { if (sx == null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1)); });
 
-/* ---------- Draggable tags & emoji badges (Framer drag) ---------- */
-document.querySelectorAll('.hero .tag, .hero .emo').forEach(el => {
-  let dragging = false, ox = 0, oy = 0, bx = 0, by = 0;
+/* ---------- Draggable tags & emoji badges (Framer drag + elastic snap-back) ---------- */
+document.querySelectorAll('.emo, .hero .tag').forEach(el => {
+  let dragging = false, ox = 0, oy = 0, bx = 0, by = 0, sx = null, sy = null;
   el.addEventListener('pointerdown', e => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    if (sx) { sx.stop(); sx = null; } if (sy) { sy.stop(); sy = null; }
     dragging = true; el.setPointerCapture(e.pointerId); el.classList.add('dragging');
     ox = e.clientX; oy = e.clientY;
     bx = parseFloat(el.style.getPropertyValue('--dx')) || 0; by = parseFloat(el.style.getPropertyValue('--dy')) || 0;
-    e.stopPropagation();
+    e.stopPropagation(); e.preventDefault();
   });
   el.addEventListener('pointermove', e => {
     if (!dragging) return;
     el.style.setProperty('--dx', (bx + e.clientX - ox) + 'px');
     el.style.setProperty('--dy', (by + e.clientY - oy) + 'px');
   });
-  const end = () => { dragging = false; el.classList.remove('dragging'); };
-  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+  const end = () => {
+    if (!dragging) return;
+    dragging = false; el.classList.remove('dragging');
+    const x0 = parseFloat(el.style.getPropertyValue('--dx')) || 0, y0 = parseFloat(el.style.getPropertyValue('--dy')) || 0;
+    sx = spring(x0, 0, v => el.style.setProperty('--dx', v + 'px'), { stiffness: 200, damping: 12 });
+    sy = spring(y0, 0, v => el.style.setProperty('--dy', v + 'px'), { stiffness: 200, damping: 12 });
+  };
+  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); el.addEventListener('lostpointercapture', end);
 });
 
 /* ---------- Load-in sequence ---------- */
@@ -240,8 +248,8 @@ function runAppear(el) {
     const delay = 400 + siblingIndex(el, '[data-fly]') * 130;
     setTimeout(() => spring(0, 1, p => {
       el.style.opacity = Math.min(1, p * 1.5);
-      el.style.transform = `translate(${fx * (1 - p)}px,${fy * (1 - p)}px) scale(${p})`;
-    }, { stiffness: 200, damping: 14 }), delay);
+      el.style.transform = `translate(calc(var(--dx,0px) + ${fx * (1 - p)}px),calc(var(--dy,0px) + ${fy * (1 - p)}px)) scale(${p})`;
+    }, { stiffness: 200, damping: 14, onDone: () => { el.style.transform = 'translate(var(--dx,0px),var(--dy,0px))'; } }), delay);
   } else if (el.hasAttribute('data-giant')) {
     spring(0, 1, p => {
       el.style.opacity = Math.min(1, p) * 0.06;
@@ -274,3 +282,37 @@ checkAppear();
 const mm = document.querySelector('.mobile-menu');
 document.querySelector('.burger-btn').addEventListener('click', () => mm.classList.add('open'));
 mm.querySelectorAll('a, .close').forEach(el => el.addEventListener('click', () => mm.classList.remove('open')));
+
+/* ---------- Waitlist form ---------- */
+(function () {
+  const form = document.getElementById('waitlist-form');
+  if (!form) return;
+  const status = form.querySelector('.wl-status');
+  const btn = form.querySelector('.wl-btn');
+  const wa = form.querySelector('.wl-alt');
+  const sel = form.querySelector('select[name=diet]');
+  const syncSel = () => sel.toggleAttribute('data-empty', !sel.value);
+  sel.addEventListener('change', syncSel); syncSel();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    if (!data.name || !data.name.trim()) { status.textContent = 'Tell us your name.'; return; }
+    if (!/^[+\d][\d\s-]{7,}$/.test(data.phone || '')) { status.textContent = 'Add a WhatsApp number we can reach you on.'; return; }
+    status.classList.remove('ok'); status.textContent = 'Saving\u2026'; btn.disabled = true;
+    try {
+      const r = await fetch('/api/interest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, source: location.href }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok) {
+        form.classList.add('is-done'); status.classList.add('ok');
+        status.textContent = 'You\u2019re on the list. We\u2019ll WhatsApp you when Katoro opens.';
+        spawnParticle(innerWidth / 2, innerHeight / 2);
+        return;
+      }
+      throw new Error(j.error || 'failed');
+    } catch (err) {
+      const msg = encodeURIComponent(`Hi Katoro, I'm interested in the launch.\nName: ${data.name}\nPhone: ${data.phone}\nArea: ${data.area || '-'}\nDiet: ${data.diet || '-'}`);
+      wa.href = 'https://wa.me/919000000000?text=' + msg;
+      status.textContent = 'Couldn\u2019t save right now \u2014 tap the WhatsApp link below and we\u2019ll add you by hand.';
+    } finally { btn.disabled = false; }
+  });
+})();

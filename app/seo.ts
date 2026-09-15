@@ -64,7 +64,7 @@ export const jsonLd = {
       geo: { "@type": "GeoCoordinates", latitude: 22.3072, longitude: 73.1812 },
       areaServed: [{ "@type": "City", name: "Vadodara" }],
       openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "11:00", closes: "23:00" }],
-      potentialAction: { "@type": "OrderAction", target: { "@type": "EntryPoint", urlTemplate: `${SITE}/#Order`, actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"] }, deliveryMethod: "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet" },
+      potentialAction: { "@type": "RegisterAction", name: "Join the Katoro waitlist", target: { "@type": "EntryPoint", urlTemplate: `${SITE}/#Waitlist`, actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"] } },
       keywords: "craft your own bowl, custom noodle bowl Vadodara, Jain noodles, vegan noodles, no onion no garlic, build your own bowl",
       sameAs: SAME_AS,
       parentOrganization: { "@id": `${SITE}/#org` },

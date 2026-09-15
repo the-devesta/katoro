@@ -10,7 +10,7 @@ const andika = Andika({ subsets: ["latin"], weight: ["400", "700"], style: ["nor
 const SITE = "https://katoro.in";
 const TITLE = "Katoro – Craft Your Own Bowl | Build-Your-Own Noodle Bowls in Vadodara";
 const DESC =
-  "Katoro is Vadodara's build-your-own noodle bowl brand. 100% vegetarian, Jain-safe (no onion, no garlic), vegan-tagged. Pick base, protein, veg, sauce, spice and crunch, pay per gram, delivered hot across Vadodara.";
+  "Katoro is Vadodara's build-your-own noodle bowl brand, launching soon. 100% vegetarian, Jain-safe (no onion, no garlic), vegan-tagged. Pick base, protein, veg, sauce, spice and crunch, pay per gram. Join the waitlist for early access.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

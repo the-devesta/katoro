@@ -8,7 +8,7 @@ export default function Page() {
 
 <div className="topbar">
   <div className="wrap">
-    <span>Vadodara · Delivery only</span>
+    <span>Vadodara · Launching soon</span>
     <span><img className="emoji" src="/assets/emoji/timer_clock.png" alt="" />Open Daily – 11AM to 11PM</span>
     <span><img className="emoji" src="/assets/emoji/seedling.png" alt="" />100% Veg · Jain-safe · Vegan-tagged</span>
   </div>
@@ -20,7 +20,7 @@ export default function Page() {
     <nav className="nav">
       <a className="logo" href="#Hero"><img className="emblem" src="/assets/logo-reversed.png" alt="Katoro emblem" />Katoro</a>
       <div className="menu">
-        <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Order">Order</a>
+        <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Waitlist">Waitlist</a>
       </div>
       <a className="btn btn-orange nav-contact" href="#Contact">Contact Us</a>
       <button className="burger-btn" aria-label="Open menu"><span></span></button>
@@ -62,7 +62,7 @@ export default function Page() {
     <div className="hero-copy">
       <p className="lead words-anim">Base, protein, veg, sauce, spice, crunch. Your bowl, your grams.</p>
       <div className="btns hero-btns">
-        <a className="btn btn-orange" href="#Menu">Build a Bowl</a>
+        <a className="btn btn-orange" href="#Waitlist">Join the Waitlist</a>
         <a className="btn btn-cream" href="#How">How it works</a>
       </div>
     </div>
@@ -176,9 +176,9 @@ export default function Page() {
             <div className="item"><h3>Green Chilli <img className="emoji" src="/assets/emoji/hot_pepper.png" alt="spicy" /></h3><span className="dots"></span><span className="price">₹15</span></div>
           </div>
           <div data-pop className="promo">
-            <span className="date"><i className="ico ico-clock"></i>Launch week</span>
-            <div className="h">₹50 off your first build in the Katoro app</div>
-            <a className="btn btn-dark" href="#Order">Get the App</a>
+            <span className="date"><i className="ico ico-clock"></i>Early access</span>
+            <div className="h">Waitlist members get ₹50 off their first bowl</div>
+            <a className="btn btn-dark" href="#Waitlist">Join Waitlist</a>
           </div>
           <div className="cat"><div className="h">Crunch</div>
             <div className="item"><h3>Roasted Peanuts</h3><span className="dots"></span><span className="price">₹25</span></div>
@@ -315,7 +315,7 @@ export default function Page() {
       <div className="ben-cta">
         <h3 data-up>Your bowl, your rules</h3>
         <p data-up>A bowl with only glass noodles and one veg is about ₹100. Load it up and it grows. You always see the total, live.</p>
-        <a data-up className="btn btn-orange" href="#Order">Start Building</a>
+        <a data-up className="btn btn-orange" href="#Waitlist">Join the Waitlist</a>
       </div>
     </div>
     <div className="ben-grid">
@@ -356,20 +356,31 @@ export default function Page() {
 </section>
 
 
-<section className="order" id="Order">
+<section className="order" id="Waitlist">
   <div className="wrap">
     <div>
       <div className="big" data-split>
-        Order<br />your<br />own<br />bowl
+        Be<br />first<br />to<br />craft
         <span className="emo e1" data-fly style={{"--fx":'300px',"--fy":'-20px'} as React.CSSProperties}><img src="/assets/emoji/takeout_box.png" alt="" /></span>
         <span className="emo e2" data-fly style={{"--fx":'-80px',"--fy":'50px'} as React.CSSProperties}><img src="/assets/emoji/face_savoring_food.png" alt="" /></span>
         <span className="emo e3" data-fly style={{"--fx":'120px',"--fy":'60px'} as React.CSSProperties}><img src="/assets/emoji/red_heart.png" alt="" /></span>
       </div>
-      <p data-up>Skip the aggregators and build straight in the Katoro app. Live preview, live price, Jain-safe by default, delivered hot across Vadodara.</p>
-      <div className="btns" data-up>
-        <a className="btn btn-orange" href="#Contact">Get the Katoro App</a>
-        <a className="btn btn-dark" href="https://wa.me/919000000000" target="_blank" rel="noopener">Order on WhatsApp</a>
-      </div>
+      <p data-up>Katoro is launching soon in Vadodara. Tell us you&apos;re in and we&apos;ll message you the day the app opens, with ₹50 off your first bowl.</p>
+      <form className="wl-form" data-up id="waitlist-form" noValidate>
+        <input className="wl-in" type="text" name="name" placeholder="Your name" autoComplete="name" required maxLength={80} />
+        <input className="wl-in" type="tel" name="phone" placeholder="WhatsApp number" autoComplete="tel" inputMode="tel" required maxLength={20} />
+        <input className="wl-in" type="text" name="area" placeholder="Your area in Vadodara" maxLength={80} />
+        <select className="wl-in" name="diet" defaultValue="" aria-label="Diet preference">
+          <option value="" disabled>I eat…</option>
+          <option value="jain">Jain</option>
+          <option value="vegan">Vegan</option>
+          <option value="veg">Vegetarian</option>
+        </select>
+        <input className="wl-hp" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+        <button className="btn btn-orange wl-btn" type="submit">I&apos;m in</button>
+        <p className="wl-status" aria-live="polite"></p>
+        <a className="wl-alt" href="https://wa.me/919000000000?text=Hi%20Katoro%2C%20I%27m%20interested%20in%20the%20launch" target="_blank" rel="noopener">or ping us on WhatsApp</a>
+      </form>
     </div>
     <div className="collage">
       <div data-pop className="torn t1"><i></i><img src="/assets/ai/g3.jpg" alt="Bowls and sides on a table" /></div>
@@ -386,7 +397,7 @@ export default function Page() {
       <h2 data-split>Let’s<br />connect</h2>
       <div className="c-block" data-up>
         <div className="h">Find Us</div>
-        <span><i className="ico ico-pin"></i>Vadodara, Gujarat · Delivery only</span>
+        <span><i className="ico ico-pin"></i>Vadodara, Gujarat · Delivery only, launching soon</span>
         <span><i className="ico ico-clock"></i>Open Daily – 11AM to 11PM</span>
       </div>
       <div className="c-block" data-up>
@@ -418,7 +429,7 @@ export default function Page() {
   <div className="wrap">
     <a className="logo" href="#Hero"><img className="emblem" src="/assets/logo-reversed.png" alt="Katoro emblem" />Katoro</a>
     <div className="f-links">
-      <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Order">Order</a><a href="#Contact">Contact Us</a>
+      <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Waitlist">Waitlist</a><a href="#Contact">Contact Us</a>
     </div>
     <div className="f-links dim">
       <a href="#">Privacy Policy</a><a href="#Hero">Back to Top</a><span>FSSAI Lic. No. XXXXXXXXXXXXXX</span>
@@ -436,7 +447,7 @@ export default function Page() {
 
 <div className="mobile-menu">
   <button className="close" aria-label="Close menu">✕</button>
-  <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Order">Order</a><a href="#Contact">Contact</a>
+  <a href="#About">About</a><a href="#Menu">Ingredients</a><a href="#How">How it works</a><a href="#Waitlist">Waitlist</a><a href="#Contact">Contact</a>
 </div>
 
 
