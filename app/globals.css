@@ -355,20 +355,21 @@ footer .logo{justify-content:center}
   .menu,.nav-contact{display:none}
   .burger-btn{display:flex}
   .hero{min-height:0}
-  .hero-stage{margin-top:40px;height:500px}
+  .hero-stage{margin-top:32px;height:500px}
   .hero-mid{padding:0 0 24px}
-  .hero h1{font-size:clamp(64px,17vw,120px)}
-  .track{top:170px;height:300px}
-  .switcher{right:16px;bottom:16px}
-  .food{width:260px;height:260px;margin-left:-130px;top:0}
+  .hero h1{font-size:clamp(56px,15vw,120px)}
+  .track{top:190px;height:300px}
+  .switcher{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+  .food{width:240px;height:240px;margin-left:-120px;top:20px}
+  .tag{font-size:14px;padding:5px 12px}
   .tag{--y:-20px!important}
-  .slide .tag:nth-of-type(1){--x:-150px!important;--y:-260px!important}
-  .slide .tag:nth-of-type(2){--x:-140px!important;--y:-210px!important}
-  .slide .tag:nth-of-type(3){--x:60px!important;--y:-260px!important}
-  .hero .emo-big{--x:70px!important;--y:150px!important;width:72px;height:72px}
+  .slide .tag:nth-of-type(1){--x:-108px!important;--y:-150px!important}
+  .slide .tag:nth-of-type(2){--x:26px!important;--y:-196px!important}
+  .slide .tag:nth-of-type(3){--x:112px!important;--y:-138px!important}
+  .hero .emo-big{--x:76px!important;--y:168px!important;width:64px;height:64px}
   .hero .emo-sm{display:none}
   .arrow{top:auto;bottom:0}
-  .hero-copy{margin-top:24px}
+  .hero-copy{margin-top:24px;padding-bottom:env(safe-area-inset-bottom)}
   .about,.order,.contact{padding:120px 0 80px}
   .about .wrap,.order .wrap,.contact .wrap{grid-template-columns:1fr;gap:48px}
   .collage,.order .collage{height:420px}
@@ -398,7 +399,7 @@ footer .logo{justify-content:center}
 }
 
 /* ---------- Color switcher ---------- */
-.switcher{position:fixed;right:32px;bottom:32px;z-index:90;display:flex;flex-direction:row-reverse;gap:8px;align-items:center}
+.switcher{position:fixed;right:32px;bottom:calc(32px + env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:row-reverse;gap:8px;align-items:center}
 .switcher .dot{width:32px;height:32px;border-radius:10px;border:2px solid #fff;cursor:pointer;padding:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s;box-shadow:0 4px 12px rgba(0,0,0,.25)}
 .switcher .dot[data-theme=red]{background:#D81E20}
 .switcher .dot[data-theme=green]{background:#208030}
