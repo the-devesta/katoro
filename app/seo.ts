@@ -35,7 +35,7 @@ export const jsonLd = {
       name: "Katoro",
       alternateName: ["Katoro Vadodara", "katoro.in", "Craft Your Own Bowl"],
       url: SITE,
-      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-primary.png`, width: 512, height: 512 },
+      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-primary.png`, width: 1024, height: 1024 },
       slogan: "Craft Your Own Bowl",
       sameAs: SAME_AS,
       contactPoint: [{ "@type": "ContactPoint", telephone: "+91-90000-00000", contactType: "customer service", areaServed: "IN", availableLanguage: ["en", "hi", "gu"] }],

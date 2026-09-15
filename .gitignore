@@ -3,3 +3,7 @@ node_modules
 out
 .DS_Store
 *.log
+
+# Raw design-drop / internal business docs — kept locally, not in the public repo
+/Katoro_Logo/
+/Katoro_foundation_document.docx
